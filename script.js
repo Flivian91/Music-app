@@ -27,7 +27,7 @@ let isRepeating = false;
 let currentTrack = null; // To store the current track URL
 
 // Fetch songs from Jamendo API
-async function fetchSongs(query = "") {
+async function fetchSongs(query = "set it") {
   try {
     const response = await fetch(
       `https://api.jamendo.com/v3.0/tracks/?client_id=a4f982d6&format=jsonpretty&limit=10&search=${query}`

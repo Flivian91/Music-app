@@ -10,16 +10,31 @@ body {
 
   height: 100vh;
 }
+.music-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 20px;
+  padding-bottom: 220px;
+}
 
 .music-player {
   background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
+  padding-bottom: 0px;
+  border-radius: 0px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 100%;
   text-align: center;
+  position: fixed;
+  bottom: 0%;
 }
-
+.current-song-area{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .song-info {
   display: flex;
   align-items: center;
@@ -138,11 +153,4 @@ body {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
-}
-.music-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  gap: 20px;
 }
