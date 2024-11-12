@@ -11,7 +11,7 @@
   <body>
     <main>
       <!-- Search Form -->
-      <!-- <div class="search-container">
+      <div class="search-container">
         <form id="search-form">
           <input
             type="text"
@@ -20,7 +20,35 @@
           />
           <button type="submit">Search</button>
         </form>
-      </div> -->
+      </div>
+
+      <!-- Song List -->
+      <div class="song-list">
+        <div class="songs-row">
+          <p></p>
+          <p>Artist Name</p>
+          <p>Title</p>
+          <p></p>
+        </div>
+        <div class="songs-list-row">
+          <li class="song-item">
+            <button class="control-btn play-btn">
+              <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+            </button>
+            <p>John</p>
+            <p>pop</p>
+            <p>04:00</p>
+            <div class="songs-action">
+              <button class="control-btn add-to-playlist">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+              </button>
+              <button class="control-btn add-to-playlist">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </button>
+            </div>
+          </li>
+        </div>
+      </div>
 
       <div class="music-main">
         <!-- Music Player Container -->
@@ -35,7 +63,7 @@
             <!-- Current Song Info -->
             <div class="song-info">
               <img
-                src="cover.jpg"
+                src="/cover.jpeg"
                 alt="Song Cover"
                 class="cover"
                 id="current-cover"
@@ -48,22 +76,23 @@
 
             <!-- Controls for like -->
             <div class="controls">
+              <button class="control-btn play-previous">
+                <i class="fa fa-step-backward" aria-hidden="true"></i>
+              </button>
               <button class="control-btn play-pause">
-                <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+               
+                <i class="fa fa-play" aria-hidden="true"></i>
               </button>
-              <button class="control-btn repeat">
-                <i class="fa fa-repeat" aria-hidden="true"></i>
-              </button>
-              <button class="control-btn like">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              </button>
-              <button class="control-btn add-to-playlist">
-                <i class="fa fa-download" aria-hidden="true"></i>
+              <button class="control-btn play-next">
+                <i class="fa fa-step-forward" aria-hidden="true"></i>
               </button>
             </div>
 
             <!-- Voleme container- to addjuct volume of the device -->
             <div class="volume-container">
+              <button class="control-btn repeat">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+              </button>
               <label for="volume"
                 ><i class="fa fa-volume-up" aria-hidden="true"></i
               ></label>
@@ -75,14 +104,14 @@
                 step="0.1"
                 value="1"
               />
+              <button class="control-btn like">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              </button>
+              <!-- <button class="control-btn add-to-playlist">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </button> -->
             </div>
           </div>
-        </div>
-
-        <!-- Song List -->
-        <div class="song-list">
-          <h3>Available Songs</h3>
-          <ul id="song-list"></ul>
         </div>
       </div>
     </main>

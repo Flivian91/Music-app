@@ -1,4 +1,4 @@
-// Existing elements
+// Declare variables
 const playPauseBtn = document.querySelector(".play-pause");
 const repeatBtn = document.querySelector(".repeat");
 const likeBtn = document.querySelector(".like");
@@ -7,9 +7,11 @@ const progressBar = document.getElementById("progress-bar");
 const volumeSlider = document.getElementById("volume");
 const currentTimeEl = document.getElementById("current-time");
 const totalTimeEl = document.getElementById("total-time");
-const songListEl = document.getElementById("song-list");
+const songListEl = document.querySelector(".songs-list-row");
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
+const previousBtn = document.querySelector(".play-previous");
+const nextBtn = document.querySelector(".play-next");
 
 // Current song elements
 const currentCover = document.getElementById("current-cover");
@@ -20,11 +22,19 @@ const songTitle = document.querySelector(".song-title");
 // Audio object
 let audio = new Audio();
 audio.volume = volumeSlider.value;
+playPauseBtn.addEventListener("click", () => {
+  console.log("Mimi ni eugine");
+});
 
 // State variables
 let isPlaying = false;
 let isRepeating = false;
 let currentTrack = null; // To store the current track URL
+let totalTIme = 0;
+let count = 0;
+let allSongs = {
+  songs: [],
+};
 
 // Fetch songs from Jamendo API
 async function fetchSongs(query = "set it") {
@@ -33,12 +43,27 @@ async function fetchSongs(query = "set it") {
       `https://api.jamendo.com/v3.0/tracks/?client_id=a4f982d6&format=jsonpretty&limit=10&search=${query}`
     );
     const data = await response.json();
-    displaySongs(data.results);
     console.log(data.results);
+    displaySongs(data.results);
+    allSongs.songs.push(data.results);
   } catch (error) {
     console.error("Error fetching songs:", error);
   }
 }
+
+// Next button
+function nextMusic(songs) {
+  count++;
+  if (count > 9) {
+    count = 0;
+  }
+  console.log(count);
+  
+  const song = allSongs.songs[count];
+  console.log(allSongs.songs[4]);
+  playTrack();
+}
+nextBtn.addEventListener("click", nextMusic);
 
 // Display the list of songs
 function displaySongs(songs) {
@@ -47,8 +72,19 @@ function displaySongs(songs) {
     const listItem = document.createElement("li");
     listItem.classList.add("song-item");
     listItem.innerHTML = `
-      <span>${song.name} - ${song.artist_name}</span>
-      <button class="play-btn" data-url="${song.id}">Play</button>
+      <button title="play" data-url="${song.id}" class="control-btn play-btn">
+        <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+      </button>
+      <p>${song.artist_name}</p>
+      <p>${song.name}</p>
+      <div class="songs-action">
+        <button class="control-btn like">
+          <i class="fa fa-heart" aria-hidden="true"></i>
+        </button>
+        <button class="control-btn download">
+          <i class="fa fa-download" aria-hidden="true"></i>
+        </button>
+      </div>
     `;
     songListEl.appendChild(listItem);
   });
@@ -56,8 +92,7 @@ function displaySongs(songs) {
   // Add event listeners to play buttons
   document.querySelectorAll(".play-btn").forEach((button) => {
     button.addEventListener("click", () => {
-      const songData = songs.find(song => song.id === button.dataset.url)      
-      
+      const songData = songs.find((song) => song.id === button.dataset.url);
       setCurrentTrack(songData);
       playTrack();
     });
@@ -66,24 +101,23 @@ function displaySongs(songs) {
 
 // Set the current track
 function setCurrentTrack(data) {
-  console.log(data);
-  
   currentTrack = data.audio;
   audio.src = data.audio;
   audio.load();
-  songTitle.textContent = `${data.name}`; // Display track name 
-  currentArtist.textContent = `${data.artist_name}` // Set artist name if available
-  currentCover.src = `${data.album_image}`
+  songTitle.textContent = `${data.name}`; // Display track name
+  currentArtist.textContent = `${data.artist_name}`; // Set artist name if available
+  currentCover.src = `${data.album_image}`;
 }
 
 // Play the current track
 function playTrack() {
   if (audio.paused) {
     audio.play();
-    playPauseBtn.textContent = "Pause";
+    playPauseBtn.innerHTML =
+      ' <i class="fa fa-pause-circle-o" aria-hidden="true"></i>';
   } else {
     audio.pause();
-    playPauseBtn.textContent = "Play";
+    playPauseBtn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
   }
   isPlaying = !audio.paused;
 }
@@ -130,6 +164,7 @@ audio.addEventListener("timeupdate", () => {
   progressBar.value = (currentTime / duration) * 100;
   currentTimeEl.textContent = formatTime(currentTime);
   totalTimeEl.textContent = formatTime(duration);
+  totalTIme = formatTime(duration);
 });
 
 // Seek Audio

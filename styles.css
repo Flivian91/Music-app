@@ -10,6 +10,11 @@ body {
 
   height: 100vh;
 }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .music-main {
   display: flex;
   align-items: center;
@@ -41,11 +46,34 @@ body {
   gap: 10px;
   margin-bottom: 20px;
 }
-
+.song-item{
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 1.5fr  1fr;
+  align-items: center;
+  gap: 30px;
+  padding: 12px;
+}
+.songs-row {
+  background-color: #f6d365;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 1.5fr  1fr;
+  align-items: center;
+  gap: 30px;
+  border-bottom-left-radius:  20px;
+  border-bottom-right-radius:  20px;
+}
+.songs-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-self: center;
+}
 .cover {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+
 }
 
 .song-title {
@@ -62,6 +90,10 @@ body {
   display: flex;
   justify-content: space-around;
   margin: 10px 0;
+  gap: 5px;
+}
+.fa {
+  font-size: 30px;
 }
 
 .control-btn {
@@ -93,11 +125,11 @@ body {
 /* Add styles for the song list */
 .song-list {
   margin-top: 20px;
-  padding: 20px;
+
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 60%;
   text-align: left;
 }
 
@@ -110,7 +142,7 @@ body {
   list-style: none;
   padding: 0;
 }
-
+/* 
 .song-item {
   display: flex;
   justify-content: space-between;
@@ -118,7 +150,7 @@ body {
   margin-bottom: 10px;
   padding: 5px 0;
   border-bottom: 1px solid #ddd;
-}
+} */
 
 .play-btn {
   background: #fda085;
@@ -137,13 +169,16 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+  width: 100%;
 }
 
 #search-input {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 200px;
+  width: 300px;
+  font-size: 20px;
+
 }
 
 #search-form button {
@@ -153,4 +188,18 @@ body {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .cover {
+    width: 30px;
+    height: 100%;
+    border-radius: 0;
+  }
+  .control-btn {
+    padding: 5px 8px;
+  }
+  #volume {
+    width: 50%;
+  }
 }
