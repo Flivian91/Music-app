@@ -23,6 +23,7 @@ audio.volume = volumeSlider.value;
 // State variables
 let isPlaying = false;
 let isRepeating = false;
+let currentTrack = null; // To store the current track URL
 
 // Fetch songs from Jamendo API
 async function fetchSongs(query = '') {
@@ -30,6 +31,8 @@ async function fetchSongs(query = '') {
     const response = await fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=a4f982d6&format=jsonpretty&limit=10&search=${query}`);
     const data = await response.json();
     displaySongs(data.results);
+    console.log(data.results);
+    
   } catch (error) {
     console.error('Error fetching songs:', error);
   }
@@ -59,8 +62,23 @@ function displaySongs(songs) {
 
 // Set the current track
 function setCurrentTrack(url) {
+  currentTrack = url;
   audio.src = url;
   audio.load();
+  currentTitle.textContent = 'Now Playing: ' + url.split('/').pop(); // Display track name (URL part)
+  currentArtist.textContent = 'Artist Name'; // Set artist name if available
+}
+
+// Play the current track
+function playTrack() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = 'Pause';
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = 'Play';
+  }
+  isPlaying = !audio.paused;
 }
 
 // Search functionality
@@ -73,16 +91,7 @@ searchForm.addEventListener('submit', (e) => {
 });
 
 // Play/Pause Toggle
-playPauseBtn.addEventListener('click', () => {
-  if (isPlaying) {
-    audio.pause();
-    playPauseBtn.textContent = 'Play';
-  } else {
-    audio.play();
-    playPauseBtn.textContent = 'Pause';
-  }
-  isPlaying = !isPlaying;
-});
+playPauseBtn.addEventListener('click', playTrack);
 
 // Repeat Toggle
 repeatBtn.addEventListener('click', () => {
