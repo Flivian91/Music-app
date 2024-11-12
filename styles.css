@@ -75,6 +75,14 @@ main {
   border-radius: 50%;
 
 }
+.control-btn.liked {
+  color: red; /* Change to a color indicating 'liked' */
+}
+
+.control-btn.disliked {
+  color: gray; /* Change to a color indicating 'disliked' */
+}
+
 
 .song-title {
   font-size: 18px;

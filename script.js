@@ -22,9 +22,6 @@ const songTitle = document.querySelector(".song-title");
 // Audio object
 let audio = new Audio();
 audio.volume = volumeSlider.value;
-playPauseBtn.addEventListener("click", () => {
-  console.log("Mimi ni eugine");
-});
 
 // State variables
 let isPlaying = false;
@@ -35,15 +32,15 @@ let count = 0;
 let allSongs = {
   songs: [],
 };
+let currentSongIndex = 0; // To track the index of the current song
 
 // Fetch songs from Jamendo API
-async function fetchSongs(query = "set it") {
+async function fetchSongs(query = "") {
   try {
     const response = await fetch(
       `https://api.jamendo.com/v3.0/tracks/?client_id=a4f982d6&format=jsonpretty&limit=10&search=${query}`
     );
     const data = await response.json();
-    console.log(data.results);
     displaySongs(data.results);
     allSongs.songs.push(data.results);
   } catch (error) {
@@ -52,18 +49,28 @@ async function fetchSongs(query = "set it") {
 }
 
 // Next button
-function nextMusic(songs) {
-  count++;
-  if (count > 9) {
-    count = 0;
+function nextMusic() {
+  currentSongIndex++;
+  if (currentSongIndex >= allSongs.songs[0].length) {
+    currentSongIndex = 0; // Loop back to the first song if at the end
   }
-  console.log(count);
-  
-  const song = allSongs.songs[count];
-  console.log(allSongs.songs[4]);
+  const song = allSongs.songs[0][currentSongIndex];
+  setCurrentTrack(song);
   playTrack();
 }
 nextBtn.addEventListener("click", nextMusic);
+
+// Previous button
+function previousMusic() {
+  currentSongIndex--;
+  if (currentSongIndex < 0) {
+    currentSongIndex = allSongs.songs[0].length - 1; // Loop to the last song if at the beginning
+  }
+  const song = allSongs.songs[0][currentSongIndex];
+  setCurrentTrack(song);
+  playTrack();
+}
+previousBtn.addEventListener("click", previousMusic);
 
 // Display the list of songs
 function displaySongs(songs) {
@@ -78,10 +85,7 @@ function displaySongs(songs) {
       <p>${song.artist_name}</p>
       <p>${song.name}</p>
       <div class="songs-action">
-        <button class="control-btn like">
-          <i class="fa fa-heart" aria-hidden="true"></i>
-        </button>
-        <button class="control-btn download">
+        <button class="control-btn download" data-url="${song.audio}">
           <i class="fa fa-download" aria-hidden="true"></i>
         </button>
       </div>
@@ -95,6 +99,14 @@ function displaySongs(songs) {
       const songData = songs.find((song) => song.id === button.dataset.url);
       setCurrentTrack(songData);
       playTrack();
+    });
+  });
+
+  // Add event listeners to download buttons
+  document.querySelectorAll(".download").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const audioUrl = e.target.closest("button").dataset.url;
+      downloadSong(audioUrl);
     });
   });
 }
@@ -144,7 +156,9 @@ repeatBtn.addEventListener("click", () => {
 // Like Button (Visual Feedback Only)
 likeBtn.addEventListener("click", () => {
   likeBtn.classList.toggle("liked");
-  likeBtn.textContent = likeBtn.classList.contains("liked") ? "Liked" : "Like";
+  likeBtn.innerHTML = likeBtn.classList.contains("liked")
+    ? '<i class="fa fa-thumbs-up fa-thumbs-o-up" aria-hidden="true"></i>'
+    : '<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>';
 });
 
 // Add to Playlist (Visual Feedback Only)
@@ -167,6 +181,16 @@ audio.addEventListener("timeupdate", () => {
   totalTIme = formatTime(duration);
 });
 
+// Download song function
+function downloadSong(url) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = url.split("/").pop(); // Use the song filename as the download name
+  document.body.appendChild(link);
+  link.click(); // Trigger the download
+  document.body.removeChild(link); // Remove the link after the download is initiated
+}
+
 // Seek Audio
 progressBar.addEventListener("input", () => {
   const duration = audio.duration;
@@ -181,6 +205,7 @@ function formatTime(seconds) {
     .padStart(2, "0");
   return `${minutes}:${secs}`;
 }
+
 
 // Initial fetch for popular songs
 fetchSongs();
