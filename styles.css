@@ -7,11 +7,7 @@
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(to right, #f6d365, #fda085);
-  display: flex;
-  /* grid-template-columns: 1fr; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
   height: 100vh;
 }
 
@@ -142,4 +138,11 @@ body {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+.music-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 20px;
 }

@@ -7,59 +7,70 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Search Form -->
-    <div class="search-container">
-      <form id="search-form">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search for songs..."
-        />
-        <button type="submit">Search</button>
-      </form>
-    </div>
+    <main>
+      <!-- Search Form -->
+      <div class="search-container">
+        <form id="search-form">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search for songs..."
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
-    <!-- Music Player Container -->
-    <div class="music-player">
-      <!-- Current Song Info -->
-      <div class="song-info">
-        <img
-          src="cover.jpg"
-          alt="Song Cover"
-          class="cover"
-          id="current-cover"
-        />
-        <div class="song-details">
-          <h3 class="song-title" id="current-title">Song Title</h3>
-          <p class="artist-name" id="current-artist">Artist Name</p>
+      <div class="music-main">
+        <!-- Music Player Container -->
+        <div class="music-player">
+          <!-- Current Song Info -->
+          <div class="song-info">
+            <img
+              src="cover.jpg"
+              alt="Song Cover"
+              class="cover"
+              id="current-cover"
+            />
+            <div class="song-details">
+              <h3 class="song-title" id="current-title">Song Title</h3>
+              <p class="artist-name" id="current-artist">Artist Name</p>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls">
+            <button class="control-btn play-pause">Play</button>
+            <button class="control-btn repeat">Repeat</button>
+            <button class="control-btn like">Like</button>
+            <button class="control-btn add-to-playlist">Add to Playlist</button>
+          </div>
+
+          <!-- Progress Bar and Volume -->
+          <div class="progress-container">
+            <span id="current-time">0:00</span>
+            <input type="range" id="progress-bar" value="0" min="0" max="100" />
+            <span id="total-time">0:00</span>
+          </div>
+          <div class="volume-container">
+            <label for="volume">Volume</label>
+            <input
+              type="range"
+              id="volume"
+              min="0"
+              max="1"
+              step="0.1"
+              value="1"
+            />
+          </div>
+        </div>
+
+        <!-- Song List -->
+        <div class="song-list">
+          <h3>Available Songs</h3>
+          <ul id="song-list"></ul>
         </div>
       </div>
-
-      <!-- Controls -->
-      <div class="controls">
-        <button class="control-btn play-pause">Play</button>
-        <button class="control-btn repeat">Repeat</button>
-        <button class="control-btn like">Like</button>
-        <button class="control-btn add-to-playlist">Add to Playlist</button>
-      </div>
-
-      <!-- Progress Bar and Volume -->
-      <div class="progress-container">
-        <span id="current-time">0:00</span>
-        <input type="range" id="progress-bar" value="0" min="0" max="100" />
-        <span id="total-time">0:00</span>
-      </div>
-      <div class="volume-container">
-        <label for="volume">Volume</label>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="1" />
-      </div>
-    </div>
-
-    <!-- Song List -->
-    <div class="song-list">
-      <h3>Available Songs</h3>
-      <ul id="song-list"></ul>
-    </div>
+    </main>
 
     <script src="script.js"></script>
   </body>
