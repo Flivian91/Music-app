@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Specifies the character encoding for the HTML document -->
     <meta charset="UTF-8" />
+    <!-- Makes the webpage responsive on all devices by setting the viewport width to match the screen size -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title of the web page displayed in the browser tab -->
     <title>Music Player App</title>
 
+    <!-- Link to the external CSS file for styling -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- Link to Font Awesome for icons -->
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
   </head>
   <body>
     <main>
-      <!-- Search Form -->
+      <!-- Container for the search form -->
       <div class="search-container">
         <form id="search-form">
+          <!-- Input field for searching songs -->
           <input
             type="text"
             id="search-input"
             placeholder="Search for songs..."
           />
+          <!-- Submit button for the search form -->
           <button type="submit">Search</button>
         </form>
       </div>
 
-      <!-- Song List -->
+      <!-- Section displaying the list of songs -->
       <div class="song-list">
+        <!-- Header row for song list columns -->
         <div class="songs-row">
-          <p></p>
-          <p>Artist Name</p>
-          <p>Title</p>
-          <p></p>
+          <p></p> <!-- Placeholder for icons -->
+          <p>Artist Name</p> <!-- Column header for artist names -->
+          <p>Title</p> <!-- Column header for song titles -->
+          <p></p> <!-- Placeholder for additional actions -->
         </div>
+        <!-- Row containing individual song details -->
         <div class="songs-list-row">
           <li class="song-item">
+            <!-- Button to play/pause the song -->
             <button class="control-btn play-btn">
               <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
             </button>
-            <p>John</p>
-            <p>pop</p>
-            <p>04:00</p>
+            <p>John</p> <!-- Artist name -->
+            <p>pop</p> <!-- Song genre -->
+            <p>04:00</p> <!-- Song duration -->
             <div class="songs-action">
+              <!-- Button to add the song to a playlist -->
               <button class="control-btn add-to-playlist">
                 <i class="fa fa-heart" aria-hidden="true"></i>
               </button>
+              <!-- Button to download the song -->
               <button class="control-btn download">
                 <i class="fa fa-download" aria-hidden="true"></i>
               </button>
@@ -50,18 +62,19 @@
         </div>
       </div>
 
+      <!-- Section containing the main music player -->
       <div class="music-main">
-        <!-- Music Player Container -->
         <div class="music-player">
-          <!-- Progress Bar to show the current duration of the music being played -->
+          <!-- Progress bar to show the current position of the song -->
           <div class="progress-container">
-            <span id="current-time">0:00</span>
+            <span id="current-time">0:00</span> <!-- Current playback time -->
             <input type="range" id="progress-bar" value="0" min="0" max="100" />
-            <span id="total-time">0:00</span>
+            <span id="total-time">0:00</span> <!-- Total duration of the song -->
           </div>
           <div class="current-song-area">
-            <!-- Current Song Info -->
+            <!-- Area displaying information about the currently playing song -->
             <div class="song-info">
+              <!-- Song cover image -->
               <img
                 src="/cover.jpeg"
                 alt="Song Cover"
@@ -74,27 +87,32 @@
               </div>
             </div>
 
-            <!-- Controls for like -->
+            <!-- Controls for playing the music -->
             <div class="controls">
+              <!-- Button to play the previous song -->
               <button class="control-btn play-previous">
                 <i class="fa fa-step-backward" aria-hidden="true"></i>
               </button>
+              <!-- Button to play or pause the current song -->
               <button class="control-btn play-pause">
                 <i class="fa fa-play" aria-hidden="true"></i>
               </button>
+              <!-- Button to play the next song -->
               <button class="control-btn play-next">
                 <i class="fa fa-step-forward" aria-hidden="true"></i>
               </button>
             </div>
 
-            <!-- Voleme container- to addjuct volume of the device -->
+            <!-- Volume control section -->
             <div class="volume-container">
+              <!-- Button to toggle repeat mode -->
               <button class="control-btn repeat">
                 <i class="fa fa-repeat" aria-hidden="true"></i>
               </button>
-              <label for="volume"
-                ><i class="fa fa-volume-up" aria-hidden="true"></i
-              ></label>
+              <!-- Volume label and slider to adjust the volume -->
+              <label for="volume">
+                <i class="fa fa-volume-up" aria-hidden="true"></i>
+              </label>
               <input
                 type="range"
                 id="volume"
@@ -103,6 +121,7 @@
                 step="0.1"
                 value="1"
               />
+              <!-- Button to like the song -->
               <button class="control-btn like">
                 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
               </button>
@@ -112,6 +131,7 @@
       </div>
     </main>
 
+    <!-- Link to the external JavaScript file for functionality -->
     <script src="script.js"></script>
   </body>
 </html>
