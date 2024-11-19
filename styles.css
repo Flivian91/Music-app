@@ -213,6 +213,9 @@ main {
     height: 100%; 
     border-radius: 0; /* Square corners */
   }
+  .song-list {
+    width: 100%;
+  }
   .control-btn {
     padding: 5px 8px; /* Smaller buttons */
   }

@@ -1,38 +1,37 @@
-// Declare variables
-const playPauseBtn = document.querySelector(".play-pause");
-const repeatBtn = document.querySelector(".repeat");
-const likeBtn = document.querySelector(".like");
-const addToPlaylistBtn = document.querySelector(".add-to-playlist");
-const progressBar = document.getElementById("progress-bar");
-const volumeSlider = document.getElementById("volume");
-const currentTimeEl = document.getElementById("current-time");
-const totalTimeEl = document.getElementById("total-time");
-const songListEl = document.querySelector(".songs-list-row");
-const searchForm = document.getElementById("search-form");
-const searchInput = document.getElementById("search-input");
-const previousBtn = document.querySelector(".play-previous");
-const nextBtn = document.querySelector(".play-next");
+// Declare variables for DOM elements
+const playPauseBtn = document.querySelector(".play-pause"); // Play/Pause button
+const repeatBtn = document.querySelector(".repeat"); // Repeat button
+const likeBtn = document.querySelector(".like"); // Like button
+const addToPlaylistBtn = document.querySelector(".add-to-playlist"); // Add to playlist button
+const progressBar = document.getElementById("progress-bar"); // Progress bar for the current track
+const volumeSlider = document.getElementById("volume"); // Volume slider
+const currentTimeEl = document.getElementById("current-time"); // Current playback time
+const totalTimeEl = document.getElementById("total-time"); // Total track duration
+const songListEl = document.querySelector(".songs-list-row"); // List of songs
+const searchForm = document.getElementById("search-form"); // Search form for songs
+const searchInput = document.getElementById("search-input"); // Input field for search
+const previousBtn = document.querySelector(".play-previous"); // Previous track button
+const nextBtn = document.querySelector(".play-next"); // Next track button
 
-// Current song elements
-const currentCover = document.getElementById("current-cover");
-const currentTitle = document.getElementById("current-title");
-const currentArtist = document.getElementById("current-artist");
-const songTitle = document.querySelector(".song-title");
+// Elements for displaying current song information
+const currentCover = document.getElementById("current-cover"); // Current song's cover image
+const currentTitle = document.getElementById("current-title"); // Current song's title
+const currentArtist = document.getElementById("current-artist"); // Current song's artist
+const songTitle = document.querySelector(".song-title"); // Song title display area
 
-// Audio object
+// Audio object for playing songs
 let audio = new Audio();
-audio.volume = volumeSlider.value;
+audio.volume = volumeSlider.value; // Set initial volume to slider value
 
-// State variables
-let isPlaying = false;
-let isRepeating = false;
-let currentTrack = null; // To store the current track URL
-let totalTIme = 0;
-let count = 0;
-let allSongs = {
-  songs: [],
-};
-let currentSongIndex = 0; // To track the index of the current song
+
+// State variables for managing playback and UI
+let isPlaying = false; // Playback state
+let isRepeating = false; // Repeat mode state
+let currentTrack = null; // Currently playing track URL
+let totalTIme = 0; // Total playback duration (formatted)
+let count = 0; // Counter for additional logic (if needed)
+let allSongs = { songs: [] }; // Store all fetched songs
+let currentSongIndex = 0; // Index of the currently playing song
 
 // Fetch songs from Jamendo API
 async function fetchSongs(query = "") {
@@ -41,43 +40,43 @@ async function fetchSongs(query = "") {
       `https://api.jamendo.com/v3.0/tracks/?client_id=a4f982d6&format=jsonpretty&limit=10&search=${query}`
     );
     const data = await response.json();
-    displaySongs(data.results);
-    allSongs.songs.push(data.results);
+    displaySongs(data.results); // Display fetched songs
+    allSongs.songs.push(data.results); // Store fetched songs
   } catch (error) {
     console.error("Error fetching songs:", error);
   }
 }
 
-// Next button
+// Function to play the next track
 function nextMusic() {
   currentSongIndex++;
   if (currentSongIndex >= allSongs.songs[0].length) {
-    currentSongIndex = 0; // Loop back to the first song if at the end
+    currentSongIndex = 0; // Loop back to the first song
   }
   const song = allSongs.songs[0][currentSongIndex];
   setCurrentTrack(song);
   playTrack();
 }
-nextBtn.addEventListener("click", nextMusic);
+nextBtn.addEventListener("click", nextMusic); // Attach event listener to Next button
 
-// Previous button
+// Function to play the previous track
 function previousMusic() {
   currentSongIndex--;
   if (currentSongIndex < 0) {
-    currentSongIndex = allSongs.songs[0].length - 1; // Loop to the last song if at the beginning
+    currentSongIndex = allSongs.songs[0].length - 1; // Loop back to the last song
   }
   const song = allSongs.songs[0][currentSongIndex];
   setCurrentTrack(song);
   playTrack();
 }
-previousBtn.addEventListener("click", previousMusic);
+previousBtn.addEventListener("click", previousMusic); // Attach event listener to Previous button
 
 // Display the list of songs
 function displaySongs(songs) {
-  songListEl.innerHTML = "";
+  songListEl.innerHTML = ""; // Clear existing songs
   songs.forEach((song) => {
     const listItem = document.createElement("li");
-    listItem.classList.add("song-item");
+    listItem.classList.add("song-item"); // Style the song item
     listItem.innerHTML = `
       <button title="play" data-url="${song.id}" class="control-btn play-btn">
         <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
@@ -90,7 +89,7 @@ function displaySongs(songs) {
         </button>
       </div>
     `;
-    songListEl.appendChild(listItem);
+    songListEl.appendChild(listItem); // Add song to the list
   });
 
   // Add event listeners to play buttons
@@ -111,49 +110,49 @@ function displaySongs(songs) {
   });
 }
 
-// Set the current track
+// Set the current track for playback
 function setCurrentTrack(data) {
   currentTrack = data.audio;
-  audio.src = data.audio;
-  audio.load();
-  songTitle.textContent = `${data.name}`; // Display track name
-  currentArtist.textContent = `${data.artist_name}`; // Set artist name if available
-  currentCover.src = `${data.album_image}`;
+  audio.src = data.audio; // Set audio source
+  audio.load(); // Load the new track
+  songTitle.textContent = `${data.name}`; // Update song title
+  currentArtist.textContent = `${data.artist_name}`; // Update artist name
+  currentCover.src = `${data.album_image}`; // Update album cover
 }
 
-// Play the current track
+// Play or pause the current track
 function playTrack() {
   if (audio.paused) {
     audio.play();
     playPauseBtn.innerHTML =
-      ' <i class="fa fa-pause-circle-o" aria-hidden="true"></i>';
+      '<i class="fa fa-pause-circle-o" aria-hidden="true"></i>'; // Update to Pause icon
   } else {
     audio.pause();
-    playPauseBtn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+    playPauseBtn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>'; // Update to Play icon
   }
-  isPlaying = !audio.paused;
+  isPlaying = !audio.paused; // Update playback state
 }
 
 // Search functionality
 searchForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Prevent form submission
   const query = searchInput.value.trim();
   if (query) {
-    fetchSongs(query);
+    fetchSongs(query); // Fetch songs based on search query
   }
 });
 
-// Play/Pause Toggle
+// Toggle play/pause
 playPauseBtn.addEventListener("click", playTrack);
 
-// Repeat Toggle
+// Toggle repeat mode
 repeatBtn.addEventListener("click", () => {
-  isRepeating = !isRepeating;
-  audio.loop = isRepeating;
-  repeatBtn.classList.toggle("active", isRepeating);
+  isRepeating = !isRepeating; // Toggle repeat state
+  audio.loop = isRepeating; // Set loop property
+  repeatBtn.classList.toggle("active", isRepeating); // Update UI
 });
 
-// Like Button (Visual Feedback Only)
+// Toggle like button state
 likeBtn.addEventListener("click", () => {
   likeBtn.classList.toggle("liked");
   likeBtn.innerHTML = likeBtn.classList.contains("liked")
@@ -161,51 +160,50 @@ likeBtn.addEventListener("click", () => {
     : '<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>';
 });
 
-// Add to Playlist (Visual Feedback Only)
+// Add to playlist button (placeholder functionality)
 addToPlaylistBtn.addEventListener("click", () => {
   alert("Added to playlist!");
 });
 
-// Volume Control
+// Adjust volume based on slider input
 volumeSlider.addEventListener("input", () => {
   audio.volume = volumeSlider.value;
 });
 
-// Update Progress Bar and Time Display
+// Update progress bar and display current/total time
 audio.addEventListener("timeupdate", () => {
   const currentTime = audio.currentTime;
   const duration = audio.duration;
-  progressBar.value = (currentTime / duration) * 100;
-  currentTimeEl.textContent = formatTime(currentTime);
-  totalTimeEl.textContent = formatTime(duration);
+  progressBar.value = (currentTime / duration) * 100; // Update progress bar
+  currentTimeEl.textContent = formatTime(currentTime); // Display current time
+  totalTimeEl.textContent = formatTime(duration); // Display total time
   totalTIme = formatTime(duration);
 });
 
-// Download song function
+// Function to download a song
 function downloadSong(url) {
   const link = document.createElement("a");
   link.href = url;
-  link.download = url.split("/").pop(); // Use the song filename as the download name
+  link.download = url.split("/").pop(); // Set filename based on URL
   document.body.appendChild(link);
-  link.click(); // Trigger the download
-  document.body.removeChild(link); // Remove the link after the download is initiated
+  link.click(); // Trigger download
+  document.body.removeChild(link); // Clean up
 }
 
-// Seek Audio
+// Seek through the track using the progress bar
 progressBar.addEventListener("input", () => {
   const duration = audio.duration;
-  audio.currentTime = (progressBar.value / 100) * duration;
+  audio.currentTime = (progressBar.value / 100) * duration; // Seek to new position
 });
 
-// Format Time Helper Function
+// Helper function to format time (MM:SS)
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60)
     .toString()
-    .padStart(2, "0");
+    .padStart(2, "0"); // Pad seconds with a leading zero
   return `${minutes}:${secs}`;
 }
-
 
 // Initial fetch for popular songs
 fetchSongs();
