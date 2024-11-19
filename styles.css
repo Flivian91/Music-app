@@ -1,213 +1,222 @@
+/* Reset default margin, padding, and box-sizing for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Styling for the body element */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #f6d365, #fda085);
-
-  height: 100vh;
+  font-family: Arial, sans-serif; /* Font style for the page */
+  background: linear-gradient(to right, #f6d365, #fda085); /* Gradient background */
+  height: 100vh; /* Full viewport height */
 }
+
+/* Styling for the main container */
 main {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Center align items */
 }
+
+/* Music player container styling */
 .music-main {
   display: flex;
   align-items: center;
-  justify-content: center;
-  
-  gap: 20px;
-  padding-bottom: 220px;
+  justify-content: center; /* Center the music player */
+  gap: 20px; /* Spacing between elements */
+  padding-bottom: 220px; /* Space at the bottom */
 }
 
+/* Music player box styling */
 .music-player {
-  background-color: #fff;
+  background-color: #fff; /* White background for the player */
   padding: 20px;
   padding-bottom: 0px;
-  border-radius: 0px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  text-align: center;
-  position: fixed;
-  bottom: 0%;
+  border-radius: 0px; /* Square corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  width: 100%; /* Full width */
+  text-align: center; /* Center text alignment */
+  position: fixed; /* Fix player to the bottom */
+  bottom: 0%; /* Align with the bottom of the viewport */
 }
-.current-song-area{
+
+/* Current song display area */
+.current-song-area {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space out elements */
   align-items: center;
 }
+
+/* Song information layout */
 .song-info {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 10px; /* Spacing between elements */
+  margin-bottom: 20px; /* Space below */
 }
-.song-item{
+
+/* Layout for each song item */
+.song-item {
   display: grid;
-  grid-template-columns: 0.3fr 1fr 1.5fr  1fr;
+  grid-template-columns: 0.3fr 1fr 1.5fr 1fr; /* Define grid columns */
   align-items: center;
-  gap: 30px;
-  padding: 12px;
+  gap: 30px; /* Spacing between columns */
+  padding: 12px; /* Padding inside each song item */
 }
+
+/* Header row for the song list */
 .songs-row {
-  background-color: #f6d365;
+  background-color: #f6d365; /* Orange background */
   padding: 12px;
   display: grid;
-  grid-template-columns: 0.3fr 1fr 1.5fr  1fr;
+  grid-template-columns: 0.3fr 1fr 1.5fr 1fr; /* Grid layout */
   align-items: center;
-  gap: 30px;
-  border-bottom-left-radius:  20px;
-  border-bottom-right-radius:  20px;
+  gap: 30px; /* Space between columns */
+  border-bottom-left-radius: 20px; /* Rounded corners */
+  border-bottom-right-radius: 20px;
 }
+
+/* Song action buttons layout */
 .songs-action {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 5px; /* Spacing between buttons */
   justify-self: center;
 }
+
+/* Song cover image styling */
 .cover {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-
+  border-radius: 50%; /* Circle shape */
 }
+
+/* Styling for liked and disliked buttons */
 .control-btn.liked {
-  color: red; /* Change to a color indicating 'liked' */
+  color: red; /* Red indicates liked */
 }
 
 .control-btn.disliked {
-  color: gray; /* Change to a color indicating 'disliked' */
+  color: gray; /* Gray indicates disliked */
 }
 
-
+/* Styling for song title text */
 .song-title {
   font-size: 18px;
   font-weight: bold;
 }
 
+/* Styling for artist name text */
 .artist-name {
   font-size: 14px;
-  color: #666;
+  color: #666; /* Light gray color */
 }
 
+/* Music player controls */
 .controls {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around; /* Spread buttons evenly */
   margin: 10px 0;
-  gap: 5px;
+  gap: 5px; /* Spacing between buttons */
 }
+
+/* Icon font size for controls */
 .fa {
   font-size: 30px;
 }
 
+/* General styling for control buttons */
 .control-btn {
-  background: #fda085;
-  color: #fff;
+  background: #fda085; /* Orange background */
+  color: #fff; /* White text */
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
+  padding: 8px 12px; /* Padding inside buttons */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background 0.3s; /* Smooth transition effect */
 }
 
+/* Hover effect for control buttons */
 .control-btn:hover {
-  background: #f6d365;
+  background: #f6d365; /* Lighter orange on hover */
 }
 
+/* Progress bar and volume control layout */
 .progress-container,
 .volume-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Spacing between elements */
   margin: 10px 0;
 }
 
+/* Progress bar and volume slider width */
 #progress-bar,
 #volume {
   width: 100%;
 }
-/* Add styles for the song list */
+
+/* Song list container styling */
 .song-list {
   margin-top: 20px;
-
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 60%;
+  background: #fff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  width: 60%; /* 60% width of the container */
   text-align: left;
 }
 
+/* Song list title styling */
 .song-list h3 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space below the title */
 }
 
-#song-list {
-  list-style: none;
-  padding: 0;
-}
-/* 
-.song-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 5px 0;
-  border-bottom: 1px solid #ddd;
-} */
-
-.play-btn {
-  background: #fda085;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+/* Search bar container styling */
 .search-container {
-  margin: 20px auto;
+  margin: 20px auto; /* Center and add vertical margin */
   text-align: center;
 }
 
+/* Search form layout */
 #search-form {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 10px; /* Spacing between search bar and button */
   width: 100%;
 }
 
+/* Styling for the search input field */
 #search-input {
   padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 300px;
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  width: 300px; /* Fixed width */
   font-size: 20px;
-
 }
 
+/* Styling for the search button */
 #search-form button {
-  padding: 8px 12px;
+  padding: 8px 12px; /* Padding inside the button */
   border: none;
-  background-color: #fda085;
-  color: #fff;
-  border-radius: 4px;
+  background-color: #fda085; /* Orange background */
+  color: #fff; /* White text */
+  border-radius: 4px; /* Rounded corners */
   cursor: pointer;
 }
 
+/* Responsive design adjustments for smaller screens */
 @media only screen and (max-width: 600px) {
   .cover {
-    width: 30px;
-    height: 100%;
-    border-radius: 0;
+    width: 30px; /* Smaller cover image */
+    height: 100%; 
+    border-radius: 0; /* Square corners */
   }
   .control-btn {
-    padding: 5px 8px;
+    padding: 5px 8px; /* Smaller buttons */
   }
   #volume {
-    width: 50%;
+    width: 50%; /* Smaller volume slider */
   }
 }
